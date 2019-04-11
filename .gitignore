@@ -63,6 +63,7 @@ precompileds
 project/project
 project/target
 .project/target
+project/
 /RUNNING_PID
 server.pid
 /.settings
