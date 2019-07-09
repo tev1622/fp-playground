@@ -38,11 +38,11 @@ object ListExercise {
   }
 
   def pack[A](l: List[A]): List[List[A]] = {
-    if(l.isEmpty) List[List[A]]()
-      val (collectedList, nextList) = l.span(_ == l.head)
-      if(nextList.isEmpty) List(collectedList) else
+    if (l.isEmpty) List[List[A]]()
+    val (collectedList, nextList) = l.span(_ == l.head)
+    if (nextList.isEmpty) List(collectedList) else
       collectedList :: pack(nextList)
-    }
+  }
 
   def encode[A](l: List[A]): List[(Int, A)] =
     pack(l).map(a => (a.length, a.head))
@@ -56,5 +56,25 @@ object ListExercise {
   def decode[A](l: List[(Int, A)]): List[A] =
     l.flatMap(i => List.fill(i._1)(i._2))
 
+  def encodeDirect[A](l: List[A]): List[(Int, A)] = {
+    if (l.isEmpty) Nil else {
+      val (cl, nl) = l.span(_ == l.head)
+      (cl.size, cl.head) :: encodeDirect(nl)
+    }
+  }
 
+  def duplicate[A](l: List[A]): List[A] =
+    l.foldLeft(List[A]())((acc, a) => acc :+ a :+ a)
+
+  def duplicateN[A](n: Int, l: List[A]): List[A] =
+    l.flatMap(List.fill(n)(_))
+
+  def drop[A](n: Int, l: List[A]): List[A] =
+    l.zipWithIndex.filterNot(a => (a._2 + 1) % n == 0).map(_._1)
+
+  def split[A](n: Int, list: List[A]):(List[A], List[A]) =
+    (list.take(3), list.drop(3))
+
+  def slice[A](i: Int, k: Int, list: List[A]): List[A] =
+    list.drop(i).take(k - i)
 }
