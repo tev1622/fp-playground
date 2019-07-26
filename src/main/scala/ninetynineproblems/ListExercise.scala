@@ -1,5 +1,7 @@
 package ninetynineproblems
 
+import scala.util.Random
+
 object ListExercise {
 
   def last[A](list: List[A]): A = list match {
@@ -77,4 +79,20 @@ object ListExercise {
 
   def slice[A](i: Int, k: Int, list: List[A]): List[A] =
     list.drop(i).take(k - i)
+
+  def rotate[A](n: Int, list: List[A]): List[A] = ???
+
+  def removeAt[A](n: Int, list: List[A]): (List[A], A) = list.splitAt(n) match {
+    case (Nil, _) => throw new NoSuchElementException
+    case (pre, e :: rest) => (pre ::: rest, e)
+    case (_, Nil) => throw new NoSuchElementException
+  }
+
+  def insertAt[A](insertedValue: A, pos: Int, list: List[A]): List[A] = list.splitAt(pos) match {
+    case (pre, next) => pre ::: insertedValue :: next
+  }
+
+  def range(n: Int, nn: Int): List[Int] =
+    if(n < nn) Nil
+    else n :: range(n + 1, nn)
 }

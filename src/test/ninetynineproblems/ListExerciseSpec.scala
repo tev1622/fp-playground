@@ -85,4 +85,11 @@ class ListExerciseSpec extends FlatSpec with Matchers {
     slice(3, 7, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k)) shouldBe List('d, 'e, 'f, 'g)
   }
 
+  "removeAt" should "Remove the Kth element from a list" in {
+    removeAt(1, List('a, 'b, 'c, 'd)) shouldBe (List('a, 'c, 'd),'b)
+  }
+
+  "insertAt" should "Insert an element at a given position into a list" in {
+    insertAt('new, 1, List('a, 'b, 'c, 'd)) shouldBe List('a, 'new, 'b, 'c, 'd)
+  }
 }
