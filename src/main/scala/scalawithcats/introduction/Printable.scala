@@ -1,5 +1,5 @@
 package scalawithcats.introduction
-
+import cats.instances.all._
 trait Printable[A] {
   def format(value: A): String
 }
