@@ -1,7 +1,12 @@
 package scalawithcats.introduction
 import cats.instances.all._
-trait Printable[A] {
+import scalawithcats.functors.Box
+trait Printable[A] { self =>
   def format(value: A): String
+
+  def contramap[B](func: B => A): Printable[B] = new Printable[B] {
+    def format(value: B): String = self.format(func(value))
+  }
 }
 
 object Printable {
@@ -30,6 +35,9 @@ object Printable {
         s"$name is a $age year-old $color cat."
       }
     }
+
+    implicit def printableBox[A](implicit p: Printable[A]): Printable[Box[A]] =
+      p.contramap[Box[A]](_.value)
   }
 
 object PrintableSyntax {
